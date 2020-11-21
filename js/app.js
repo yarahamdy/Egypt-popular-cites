@@ -19,7 +19,7 @@
  */
 
 
-const menuElement = document.getElementById("navbar__list");
+const menuElement = document.getElementById('navbar__list');
 const backToTopButton = document.querySelector('.back-to-top');
 const sections = document.getElementsByTagName('section');
 
@@ -28,6 +28,11 @@ const sections = document.getElementsByTagName('section');
  * Start Helper Functions
  *
  */
+
+function isAtTopOfPage(location) {
+    return document.body.scrollTop > location || document.documentElement.scrollTop > location
+
+}
 
 
 /**
@@ -43,9 +48,9 @@ const sections = document.getElementsByTagName('section');
  */
 
 for (let section of sections) {
-    const li = document.createElement("li");
-    const a = document.createElement("a");
-    a.className = "menu__link";
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.className = 'menu__link';
     a.textContent = section.getAttribute('data-nav');
     a.setAttribute('id', `menu_id_${section.id}`);
     li.appendChild(a);
@@ -56,7 +61,7 @@ for (let section of sections) {
  * I listen on scroll and use getBoundingClientRect to calculate wither the section
  * is being entirely viewed
  */
-document.addEventListener('scroll', function (ev) {
+document.addEventListener('scroll', () => {
     for (let section of sections) {
         const {top, bottom} = section.getBoundingClientRect();
         if (top >= 0 && bottom < window.innerHeight) {
@@ -76,10 +81,10 @@ document.addEventListener('scroll', function (ev) {
         }
     }
 
-    if (document.body.scrollTop > 60 || document.documentElement.scrollTop > 60) {
-        backToTopButton.style.display = "block";
+    if (isAtTopOfPage(60)) {
+        backToTopButton.style.display = 'block';
     } else {
-        backToTopButton.style.display = "none";
+        backToTopButton.style.display = 'none';
     }
 });
 
@@ -90,44 +95,32 @@ document.addEventListener('scroll', function (ev) {
  *scroll into view instead of scroll to for easier code§
  * https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
  */
-menuElement.addEventListener('click', function (ev) {
+menuElement.addEventListener('click', (ev) => {
     const section = document.querySelector(`section[data-nav='${ev.target.textContent}']`);
-    section.scrollIntoView({behavior: "smooth"})
-
+    section.scrollIntoView({behavior: 'smooth'})
 });
 
 
 /**
  * add event listener to scroll to top
  */
-backToTopButton.addEventListener('click', function () {
+backToTopButton.addEventListener('click', () => {
     window.scrollTo({
         top: 0,
-        behavior: "smooth",
+        behavior: 'smooth',
     })
 });
 
 let menuHideTimeOut;
 
-
-document.addEventListener('scroll', function (ev) {
+document.addEventListener('scroll', () => {
     menuElement.hidden = false;
     clearTimeout(menuHideTimeOut);
 
-    menuHideTimeOut = setTimeout(function () {
-        if (document.body.scrollTop > 60 || document.documentElement.scrollTop > 60) {
+    menuHideTimeOut = setTimeout(() => {
+        if (isAtTopOfPage(60)) {
             menuElement.hidden = true;
         }
     }, 4000);
 
-})
-
-/**
- *
- * git init
- git add README.md
- git commit -m "first commit"
- git branch -M main
- git remote add origin https://github.com/yarahamdy/landing-page.git
- git push -u origin main
- */
+});
