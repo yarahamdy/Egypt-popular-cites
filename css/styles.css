@@ -2,8 +2,8 @@
  *
  * CSS written based on SMACSS architecture.
  * To learn more, visit: http://smacss.com/
- * 
- * For simplicity, no reset or normalize is added. 
+ *
+ * For simplicity, no reset or normalize is added.
  * To learn more, visit: https://css-tricks.com/reboot-resets-reasoning/
  *
 */
@@ -56,6 +56,7 @@ main {
 }
 
 section {
+    display: flex;
     position: relative;
     min-height: 80vh;
 }
@@ -125,12 +126,19 @@ section {
         max-width: 50em;
         padding: 4em;
     }
+    .image_container {
+        padding-block-start: 8em;
+    }
+}
+
+section:nth-of-type(even) .image_container {
+    order: -1;
 }
 
 section:nth-of-type(even) .landing__container {
     margin-right: 0;
     margin-left: auto;
-    text-align: right; 
+    text-align: right;
 }
 
 /* Background Circles */
@@ -221,7 +229,7 @@ section.your-active-class .landing__container::after {
 	}
 	to {
 		transform: rotate(360deg)
-		           translate(-1em) 
+		           translate(-1em)
 		           rotate(-360deg);
 	}
 }
@@ -240,4 +248,8 @@ section.your-active-class .landing__container::after {
     border-radius:7px ;
     padding-top:12px ;
     display: none;
+}
+
+.image {
+    max-width: 400px;
 }
