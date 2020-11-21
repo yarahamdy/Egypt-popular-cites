@@ -120,6 +120,9 @@ section {
     padding: 1em;
     text-align: left;
 }
+.image_container {
+    display: none;
+}
 
 @media only screen and (min-width: 35em){
     .landing__container {
@@ -128,6 +131,7 @@ section {
     }
     .image_container {
         padding-block-start: 8em;
+        display: block;
     }
 }
 
